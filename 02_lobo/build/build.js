@@ -4,9 +4,24 @@ var Entity = (function () {
         this.y = y;
         this.step = step;
         this.image = image;
-        this.morreu = false;
+        this.vivo = true;
+        this.renascer = 0;
     }
+    Entity.prototype.update = function () {
+        if (!this.vivo) {
+            this.renascer--;
+            if (this.renascer <= 0) {
+                this.vivo = true;
+                this.renascer = 0;
+            }
+        }
+    };
     Entity.prototype.draw = function () {
+        if (!this.vivo) {
+            wolf.x = getRandomInt(1, 8);
+            wolf.y = getRandomInt(1, 5);
+            return;
+        }
         image(this.image, this.x * this.step, this.y * this.step, this.step, this.step);
     };
     return Entity;
@@ -17,6 +32,7 @@ var Board = (function () {
         this.nl = nl;
         this.step = step;
         this.background = background;
+        this.vivo = true;
     }
     Board.prototype.draw = function () {
         image(this.background, 0, 0, this.nc * this.step, this.nl * this.step);
@@ -54,6 +70,12 @@ function preload() {
     board_img = loadImg('../sketch/grama.jpg');
 }
 function keyPressed() {
+    var wolf_x = wolf.x;
+    var wolf_y = wolf.y;
+    var rabbit_x = rabbit.x;
+    var rabbit_y = rabbit.y;
+    var trap_x = trap.x;
+    var trap_y = trap.y;
     if (keyCode === LEFT_ARROW) {
         wolf.x--;
     }
@@ -78,22 +100,32 @@ function keyPressed() {
     else if (keyCode === "S".charCodeAt(0)) {
         rabbit.y++;
     }
+    if (wolf.x == rabbit.x && wolf.y == rabbit.y) {
+        rabbit.vivo = false;
+        rabbit.renascer = 30;
+        console.log("colisão");
+    }
+    if (wolf.x == trap.x && wolf.y == trap.y) {
+        console.log("lobo caiu na armadilha");
+        wolf.vivo = false;
+        wolf.renascer = 30;
+    }
 }
 function setup() {
     var size = 100;
+    frameRate(10);
     wolf = new Entity(2, 2, size, wolf_img);
     rabbit = new Entity(1, 1, size, rabbit_img);
     trap = new Entity(getRandomInt(1, 8), getRandomInt(1, 5), size, trap_img);
     board = new Board(8, 5, size, board_img);
     createCanvas(board.nc * size, board.nl * size);
 }
-if (wolf.x === trap.x) {
-    console.log("colisão");
-}
 function draw() {
     board.draw();
     trap.draw();
     wolf.draw();
     rabbit.draw();
+    rabbit.update();
+    wolf.update();
 }
 //# sourceMappingURL=build.js.map
