@@ -9,7 +9,7 @@ class Cliente {
     toString() {
         return `${this.nome}, ${this.fone}`
     }
-
+        
     setFone(fone : number) {
        this.fone =  fone;
     }
@@ -37,38 +37,52 @@ class Sala {
         if (cadeira == null) {
             sda += " - ";
         } else {
-            sda += `${cadeira.nome[i]}`;
+            sda += ` ${cadeira.nome[i]} `;
         }
         
     }   
     sda += ")";
     return sda;
     }
-}
 
-class Control {
-   
-
-
-    constructor () {
-        
+    
+    //retorna -1 se não encontrar
+    indexOf(id: String): number {
+        return this.cadeiras.findIndex(c => c != null && c.nome == id);
+        // for (let i = 0; i < this.cadeiras.length; i++)
+        //     if (this.cadeiras[i] != null && this.cadeiras[i].id == id)
+        //         return i;
+        // return -1;
     }
 
-    abrir(tamCinema : number) {
-        let sala = new Sala(tamCinema);
-        console.log(`Nova sala de ${tamCinema} lugares aberta`);
-        return console.log(sala.toString());
-    }
-
-    reservar(nome : string, fone : number, cadeira : number) {
-        if (this. !== null)
-        let reservado = new Cliente(nome, fone);
+    reservar(cliente: Cliente, posicao: number): boolean {
+        if (posicao < 0 || posicao > this.cadeiras.length) {
+            console.log("Essa cadeira não existe!")
+            return false;
         }
-        
-       
+        if (this.cadeiras[posicao] != null) {
+            console.log("Essa cadeira já está reservada!")
+            return false;
+        }
+        if (this.indexOf(cliente.nome) != -1) {
+            console.log("Você já está reservando uma cadeira!")
+            return false;
+        }
+        this.cadeiras[posicao] = cliente;
+        return true;
+    }
 
-
+    cancelar(id: string): boolean {
+        let posicao = this.indexOf(id);
+        if (posicao == -1) {
+            this.cadeiras[posicao] = null;
+            return true;
+        }
+        return false;
+    }
 }
+
+
 
 
 
@@ -93,8 +107,15 @@ class Control {
 
 // console.log("" + sala);
 
-let control = new Control;
-control.abrir(5);
-//console.log(control.abrir(5));
 
+let jober = new Cliente("jober", 3030);
+let leti = new Cliente("let", 30030);
+let salaa = new Sala(5);
+
+salaa.reservar(jober, 1);
+salaa.reservar(leti, 1);
+salaa.reservar(leti, 2);
+salaa.cancelar("jober");
+//console.log(control.abrir(5));
+console.log(salaa.toString());
 
