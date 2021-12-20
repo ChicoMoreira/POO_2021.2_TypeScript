@@ -14,18 +14,18 @@ class Cliente {
         return `${this.nome}, ${this.fone}`
     }
         
-    setFone(fone : number) {
-       this.fone =  fone;
+    getNome() {
+       return this.fone;
     }
 
-    setId(id : string) {
-        this.nome = id;
+    getFone() {
+        return this.nome;
     }
 
 }
 
 class Sala {
-    cadeiras : Array<Cliente | null>;
+    cadeiras : Array <Cliente | null>;
     
     constructor (tamSala : number) {
         this.cadeiras = [];
@@ -64,11 +64,12 @@ class Sala {
             console.log("Essa cadeira não existe!")
             return false;
         }
-        if (this.cadeiras[posicao] != null) {
+        if (this.cadeiras[posicao] !
+            == null) {
             console.log("Essa cadeira já está reservada!")
             return false;
         }
-        if (this.indexOf(cliente.nome) != -1) {
+        if (this.indexOf(cliente.nome) !== -1) {
             console.log("Você já está reservando uma cadeira!")
             return false;
         }
