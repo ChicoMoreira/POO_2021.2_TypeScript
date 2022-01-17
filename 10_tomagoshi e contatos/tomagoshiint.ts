@@ -1,6 +1,6 @@
-// const readline = require('readline-sync');
-// let input = (): string => readline.question();
-// let write = (x : any) => process.stdout.write("" + x);
+const readline = require('readline-sync');
+let input = (): string => readline.question();
+let write = (x : any) => process.stdout.write("" + x);
 
 class Tomagoshi {
 nome: string;
@@ -110,7 +110,7 @@ taVivo : boolean;
     
     
     toString2() {
-        return (`E:${this.energia}/${this.eneMax}, S:${this.saciedade}/${this.sacMax}, L:${this.limpeza}/${this.limMax}, D:${this.diamantes}, I:${this.idade}`);
+        return (`[${this.nome}]E:${this.energia}/${this.eneMax}, S:${this.saciedade}/${this.sacMax}, L:${this.limpeza}/${this.limMax}, D:${this.diamantes}, I:${this.idade}`);
     }
     
 
@@ -159,7 +159,7 @@ class Board {
             } else if (words[0] == "help") {
                 this.mostrar_help();
             } else if (words[0] == "show") {
-                write("" + pet + "\n");
+                write("" + pet.toString2() + "\n");
             } else if (words[0] == "eat") {
                 pet.comer();
             } else if (words[0] == "play") {

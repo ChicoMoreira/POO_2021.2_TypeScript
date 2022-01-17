@@ -1,6 +1,16 @@
-var NL = 15;
-var NC = 15;
-var LADO = 20;
+var x = 20;
+console.log(x);
+var y = 35;
+console.log(y);
+var adicionar = function (a, b) {
+    return a + b;
+};
+console.log(adicionar(20, 20));
+var adicionar3 = function (a, b) { return (a + b); };
+console.log(adicionar3(10, 20));
+var NL = 10;
+var NC = 10;
+var LADO = 70;
 var Cell = (function () {
     function Cell(x, y, color) {
         this.x = x;
@@ -17,14 +27,25 @@ var Snake = (function () {
     }
     return Snake;
 }());
+var Food = (function () {
+    function Food() {
+        this.body = new Cell(4, 1, color("green"));
+        this.vx = 0;
+        this.vy = 0;
+    }
+    return Food;
+}());
+var score = 0;
 var snake;
 var cell_color;
 var timer = 0;
+var food;
 function setup() {
     createCanvas(NC * LADO, NL * LADO);
     frameRate(30);
     cell_color = color(20);
     snake = new Snake();
+    food = new Food();
 }
 function keyPressed() {
     if (keyCode === LEFT_ARROW) {
@@ -71,11 +92,32 @@ function snake_walk() {
         snake.body.y += snake.vy;
     }
 }
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function crescer(food) {
+}
+function colision() {
+    if (snake.body.x === food.body.x && snake.body.y === food.body.y) {
+        food = new Food();
+        food.body.x = getRandomInt(0, 9);
+        food.body.y = getRandomInt(0, 9);
+        score++;
+    }
+}
+function ponto() {
+    textSize(30);
+    fill(255, 255, 255);
+    text("Pontos: " + score, 555, 50);
+}
 function draw() {
     snake_walk();
     snake_loop();
     background(220);
     draw_mat();
     draw_cell(snake.body);
+    draw_cell(food.body);
+    colision();
+    ponto();
 }
 //# sourceMappingURL=build.js.map

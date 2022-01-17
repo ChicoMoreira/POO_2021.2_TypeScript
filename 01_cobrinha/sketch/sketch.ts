@@ -1,6 +1,6 @@
-const NL = 15
-const NC = 15
-const LADO = 20;
+const NL = 10;
+const NC = 10;
+const LADO = 70;
 
 class Cell {
   x: number;
@@ -24,15 +24,29 @@ class Snake {
   }
 }
 
+class Food {
+  body: Cell;
+  vx: number;
+  vy: number;
+  constructor() {
+    this.body = new Cell(4, 1, color("green"));
+    this.vx = 0;
+    this.vy = 0;
+  }
+}
+
+let score: number = 0;
 let snake: Snake;
 let cell_color: p5.Color;
 let timer = 0;
+let food: Food;
 
 function setup() {
   createCanvas(NC*LADO, NL*LADO);
   frameRate(30);
   cell_color = color(20);
   snake = new Snake();
+  food = new Food();
 }
 
 function keyPressed(){
@@ -82,10 +96,39 @@ function snake_walk(){
   }
 }
 
+function getRandomInt(min :number, max:number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function crescer(food: Food) {
+   
+}
+
+
+
+function colision() {
+  if (snake.body.x === food.body.x && snake.body.y === food.body.y) {
+  food = new Food()
+  food.body.x = getRandomInt(0, 9);
+  food.body.y = getRandomInt(0, 9);
+  score ++; 
+}
+}
+
+function ponto() {
+  textSize(30);
+  fill(255, 255, 255);
+  text(`Pontos: ${score}`, 555, 50)
+  
+}
+
 function draw(){
   snake_walk();
   snake_loop();
   background(220);
   draw_mat();
   draw_cell(snake.body);
+  draw_cell(food.body)
+  colision();
+  ponto();
 }
