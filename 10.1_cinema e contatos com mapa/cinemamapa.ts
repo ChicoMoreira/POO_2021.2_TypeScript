@@ -1,11 +1,11 @@
 
 class Pessoa {
     nome : string
-    numero : number
+    tag : number
 
-    constructor(nome: string, numero: number) { 
+    constructor(nome: string, tag: number) { 
         this.nome   = nome
-        this.numero = numero
+        this.tag = tag
     }
 }
 
@@ -45,26 +45,36 @@ class Cinema {
             return;
         }
         let chave = this.nomes.get(nome);
+        if(chave !== undefined) {
         this.cadeiras.delete(chave);
         this.nomes.delete(nome);
+        }
     }
 
-    public toString() {
-        let saida = "";
+
+    public toString() : string {
+        let saida = "Sala [-";
         for (let i = 0; i < this.lotacao; i++) {
-            if (this.cadeiras.has(i)) {
-                let pessoa = this.cadeiras.get(i);
-                saida += pessoa.nome + " ";
+            let pessoa : undefined | Pessoa = this.cadeiras.get(i);
+            if (this.cadeiras.has(i)  && pessoa != undefined) {
+                saida += `-${pessoa.nome}-`;
             } else {
-                saida += "- ";
+                saida += `-p${i}-`;
             }
         }
+        return saida + "-]"
     }
 }
 
 
-// let cin = new Cinema (7)
-// cin.reservar(0, new Pessoa("clebis"))
-// cin.reservar(1, new Pessoa("joao"))
-// cin.reservar(7, new Pessoa("joseb"))
-// console.log(cin.toString())
+let cin = new Cinema (7)
+cin.reservar(0, new Pessoa("clebis", 3032))
+cin.reservar(1, new Pessoa("joao", 3333))
+cin.reservar(7, new Pessoa("joseb", 3334))
+cin.reservar(7, new Pessoa("dio", 3336))
+cin.reservar(2, new Pessoa("joao", 3333))
+cin.reservar(4, new Pessoa("dio", 3336))
+console.log(cin.toString())
+cin.cancelar("clebis")
+cin.cancelar("jojo")
+console.log(cin.toString())
