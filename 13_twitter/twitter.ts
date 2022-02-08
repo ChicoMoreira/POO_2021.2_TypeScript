@@ -208,4 +208,5 @@ twitter.sendTwitada("chico", "vou hitar")
 console.log(twitter.toString())
 console.log(dio.getInbox())
 console.log(goba.getInbox())
+
 console.log(chico.getInbox())
