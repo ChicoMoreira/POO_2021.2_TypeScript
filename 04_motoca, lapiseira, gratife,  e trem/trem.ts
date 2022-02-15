@@ -12,7 +12,7 @@ class Kid {
 }
 
 class Trem {
-    pessoas: Array<Kid>; //Kid
+    pessoas: Array<Kid>; 
     potencia: number;
     tempo: number;
     lotacao: number;
@@ -26,6 +26,7 @@ class Trem {
 
     comprarTempo(qtd: number): void {
         this.tempo += qtd;
+        console.log(`${qtd} minutos comprados`)
     }
 
     dirigir(tempo: number): boolean {
@@ -38,9 +39,11 @@ class Trem {
             return false;
         }
         if (this.tempo < tempo) {
-            console.log("tempo insuficiente");
+            console.log(`tempo insuficiente, andou ${this.tempo} minutos`);
+            this.tempo = tempo - this.tempo
             return false;
         }
+        console.log(`O trem andou ${this.tempo} minutos`)
         this.tempo -= tempo;
         return true;
     }
@@ -91,15 +94,18 @@ let trem = new Trem(5, 4);
 console.log(trem.toString());
 trem.subir(new Kid("João", 5));
 trem.subir(new Kid("Maria", 4));
+trem.subir(new Kid("chiquinho", 5))
 trem.subir(new Kid("Pedro", 3));
 trem.subir(new Kid("José", 2));
 trem.subir(new Kid("Paulo", 1));
 console.log(trem.toString());
-trem.comprarTempo(5);
+trem.comprarTempo(20);
 console.log(trem.buzinar());
-console.log(trem.dirigir(5));
+trem.dirigir(5)
 console.log(trem.toString());
-console.log(trem.descer());
+trem.descer()
 console.log(trem.toString());
-console.log(trem.descer());
+trem.descer()
 console.log(trem.toString());
+trem.dirigir(30)
+
