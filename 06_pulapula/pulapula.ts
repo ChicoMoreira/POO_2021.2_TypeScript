@@ -1,7 +1,6 @@
 class Criança {
     nome: string;
     idade: number;
-
     constructor (nome : string, idade : number) {
         this.nome = nome;
         this.idade = idade;
@@ -17,8 +16,6 @@ class Pulapula {
     brincando : Array<Criança>;
     fila : Array<Criança>;
     tamPula : number;
-    
-
     constructor(tamPula : number){
         this.brincando = new Array<Criança>(); 
         this.fila = new Array<Criança>();
@@ -68,7 +65,6 @@ class Pulapula {
         this.brincando.shift();
     }
 
-
     remover(nomecri : string) {
         if(this.fila.length == 0 && this.brincando.length == 0){
             return ("pulapula e fila vazios");
@@ -87,19 +83,7 @@ class Pulapula {
         
         }
     }
-
-
-
-
-
 }
-
-
-  
-  
-  
-
-
 let pula = new Pulapula(2);
 pula.chegou(new Criança("Jober", 10));
 pula.chegou(new Criança("Ana", 6));
