@@ -1,3 +1,5 @@
+import { arrayBuffer } from "stream/consumers"
+
 class User {
     private username: string
     private inbox: Inbox
@@ -23,7 +25,7 @@ class User {
     }
 
     getTimeline() {
-        return this.inbox.getTimeline().keys()
+        return this.inbox.getTimeline()
     }
 
     getInbox() {
@@ -83,7 +85,7 @@ class User {
     }
 
     showInbox() {      
-        return `Timeline de ${this.username}:\n${this.inbox.toString()}`
+        return `Timeline de ${this.username}:\n${this.inbox.toString()}` 
     }
 }
 
@@ -159,6 +161,7 @@ class Inbox {
             if(tweets.isDeleted() == false)
             saida.push(tweets)
         }
+        saida = [...saida].sort((a, b) => b.getId() - a.getId()) 
         return saida
     }
 
@@ -190,14 +193,10 @@ class Inbox {
     }
 
     toString() {
-        let saida = ``
-        for(let tweets of this.timeline.values()) {
-            if(tweets.isDeleted() == false)
-            saida += `${tweets.toString()}\n`
-        }
-        return saida
+        return `${this.getTimeline().join("\n")}`
     }
 }
+
 
 class Controller {
     private users: Map<string, User>
@@ -262,6 +261,7 @@ class Controller {
     
     public toString() {
         let saida = ""
+        let saida2 = new Array()
         for(let twiteiros of this.users.values()) {
             saida += `${twiteiros.toString()}\n`
         }    
@@ -271,7 +271,9 @@ class Controller {
             if (users == undefined)
             throw new Error("Isso nunca vai cair")
             saida += `${users.showInbox()}\n`
+        
         }
+       
         return saida
     }
 }
@@ -294,12 +296,17 @@ chico.follow(goba)
 dio.follow(chico)
 chico.unfollow("goba")
 chico.follow(goba)
+goba.follow(kate)
 twitter.sendTwitada("goba", "não sei usar essa rede social")
 twitter.sendTwitada("chico", "será se deu bom")
 twitter.sendTwitada("chico", "vou hitar")
 twitter.sendTwitada("dio", "carro do leite")
+twitter.sendTwitada("kate", "auau eu sou um dog")
+twitter.sendTwitada("kate", "que saudades do meu amigo goba")
 twitter.sendRt("chico", 2, "deu bom sim meu chapa")
 twitter.sendRt("dio", 5, "e se eu fizer rt desse?")
+twitter.sendTwitada("chico", "eita man")
+twitter.sendRt("goba", 6, "saudades kate")
 chico.like(2)
 chico.like(3)
 dio.like(5)
