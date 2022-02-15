@@ -314,4 +314,3 @@ dio.like(6)
 kate.like(6)
 twitter.rmvUser("chico")
 console.log(twitter.toString())
-
