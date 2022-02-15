@@ -6,6 +6,7 @@ var Entity = (function () {
         this.image = image;
         this.vivo = true;
         this.renascer = 0;
+        this.vidas = 2;
     }
     Entity.prototype.update = function () {
         if (!this.vivo) {
@@ -70,12 +71,6 @@ function preload() {
     board_img = loadImg('../sketch/grama.jpg');
 }
 function keyPressed() {
-    var wolf_x = wolf.x;
-    var wolf_y = wolf.y;
-    var rabbit_x = rabbit.x;
-    var rabbit_y = rabbit.y;
-    var trap_x = trap.x;
-    var trap_y = trap.y;
     if (keyCode === LEFT_ARROW) {
         wolf.x--;
     }
@@ -103,12 +98,10 @@ function keyPressed() {
     if (wolf.x == rabbit.x && wolf.y == rabbit.y) {
         rabbit.vivo = false;
         rabbit.renascer = 30;
-        console.log("colisão");
     }
     if (wolf.x == trap.x && wolf.y == trap.y) {
-        console.log("lobo caiu na armadilha");
         wolf.vivo = false;
-        wolf.renascer = 30;
+        wolf.renascer = 20;
     }
 }
 function setup() {

@@ -1,11 +1,11 @@
 class Entity {
-  x: number; //atributos
+  x: number; 
   y: number;
   step: number;
   image: p5.Image;
   vivo: boolean;
   renascer: number;
-                //parametros
+  vidas: number;
   constructor(x: number, y: number, step: number, image: p5.Image) {
       this.x = x;
       this.y = y;
@@ -13,6 +13,7 @@ class Entity {
       this.image = image;
       this.vivo = true;
       this.renascer = 0;
+      this.vidas = 2;
   }
   
   update(): void {
@@ -25,28 +26,18 @@ class Entity {
     }
   }
   
-  
-  
-  
-  
-  
-  
-  //metodos
   draw(): void {
     if(!this.vivo) {
       wolf.x = getRandomInt(1, 8);
       wolf.y = getRandomInt(1, 5);
       return;
-    
-
     }
-  
     image(this.image, this.x * this.step, this.y * this.step, this.step, this.step);
   }
 }
 
 class Board {
-  nl: number; //atributos
+  nl: number;
   nc: number;
   step: number;
   background: p5.Image;
@@ -60,7 +51,6 @@ class Board {
   }
 
   draw(): void {
-     
       image(this.background, 0, 0, this.nc * this.step, this.nl * this.step);
       for (let x = 0; x < this.nc; x++) {
           for (let y = 0; y < this.nl; y++) {
@@ -73,29 +63,20 @@ class Board {
   }
 }
 
-
-
 let wolf_img: p5.Image;
 let rabbit_img: p5.Image;
 let trap_img: p5.Image;
 let board_img: p5.Image;
-
 let trap: Entity;
 let wolf: Entity;
 let rabbit: Entity;
-
 let board: Board;
-
 
 function getRandomInt(min:number, max:number) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
-
-
-
 
 function loadImg(path: string): p5.Image {
   return loadImage(
@@ -113,13 +94,6 @@ function preload() {
 }
 
 function keyPressed() {
-  let wolf_x = wolf.x;
-  let wolf_y = wolf.y;
-  let rabbit_x = rabbit.x;
-  let rabbit_y = rabbit.y;
-  let trap_x = trap.x;
-  let trap_y = trap.y;
-
   if (keyCode === LEFT_ARROW ) {
       wolf.x--;
   } else if (keyCode === RIGHT_ARROW ) {
@@ -141,34 +115,15 @@ function keyPressed() {
   }
   
   if(wolf.x == rabbit.x && wolf.y == rabbit.y){
-   // wolf.x = wolf_x;
-   // wolf.y = wolf_y;
-   // rabbit.x = rabbit_x;
-   // rabbit.y = rabbit_y;
     rabbit.vivo = false;
     rabbit.renascer = 30;
-    console.log("colisão");  
   }
 
-  if(wolf.x == trap.x && wolf.y == trap.y){
-    console.log("lobo caiu na armadilha")
+  if(wolf.x == trap.x && wolf.y == trap.y){ 
     wolf. vivo = false;
-    wolf.renascer = 30;
-   // let wolf_x = getRandomInt(1, 8);
-   // let wolf_y = getRandomInt(1, 5); 
-  
+    wolf.renascer = 20;
   }
-
-
-
 }
-
-
- 
-
-
-
-
 
 function setup() {
   let size = 100;
@@ -180,10 +135,6 @@ function setup() {
  
   createCanvas(board.nc * size, board.nl * size);
 }
-
-
-
-
 
 function draw() {
 
