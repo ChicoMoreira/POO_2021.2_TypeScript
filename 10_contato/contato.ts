@@ -1,7 +1,6 @@
 class Tele {
     private tag: string;
     private number: string;
-    
     constructor(tag: string, number: string) {
         this.tag = tag;
         this.number = number;
@@ -11,9 +10,6 @@ class Tele {
         return `${this.tag} - ${this.number}`;
     }
     
-
-
-
     public validate(): boolean {
         let valid = "0123456789()-.";
         for (let i = 0; i < this.number.length; i++) {
@@ -37,8 +33,6 @@ class Tele {
 class Contato {
     private nome: string;
     private teles: Array<Tele>;
-   
-
     constructor(nome: string, teles:Array<Tele>) {
         this.nome = nome;
         this.teles = new Array<Tele>();
@@ -47,11 +41,7 @@ class Contato {
         }
     }
 
-    public toString2(): string {
-        return `${this.nome}:${"\n"}${this.teles.join("\n")}`;
-    }
-
-    public toString3(): string {
+    public toString(): string {
         let saida = this.nome + "\n";
         for(let i of this.teles) {
             saida += `[${this.teles.indexOf(i)}]${this.teles.toString()}${"\n"}`
@@ -59,13 +49,6 @@ class Contato {
         return saida;
     }
 
-    // getFone(index : number) {
-    //     let tele = this.teles[index].toString();
-    //     `${this.teles[index].tag}`
-    //     return tele; 
-    // }
-
-    //desnecessário??
     setFone(teles: Array<Tele>) {
         this.teles = [];
         for(let tele of teles) {
@@ -90,31 +73,12 @@ class Contato {
         }
         this.teles.splice(index, 1);
     }
-
-
-
-
-
 }
 
-
-// let tele = new Tele("oi", "(85)9988");
-// let tele2 = new Tele("claro", "tedoide");
-// console.log( "" + tele.toString());
-// console.log( "" + tele2.toString());
-// console.log(tele.isValid());
-// console.log(tele2.isValid());
-
-
 let ctt = new Contato("jober", []);
-// ctt.removeFone(1);
 ctt.addTele(new Tele("claro", "(88)000000"));
 ctt.addTele(new Tele("tim", "88-996677"));
 ctt.addTele(new Tele("oi 2", "86773028"));
-// console.log(ctt.toString2());
-console.log(ctt.toString3());
-// ctt.removeFone(1);
-// ctt.removeFone(6);
- console.log(ctt.toString2());
+console.log(ctt.toString());
 
 
