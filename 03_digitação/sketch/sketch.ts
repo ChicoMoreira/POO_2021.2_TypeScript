@@ -4,10 +4,8 @@ class Bubble {
   y: number;
   letter: string;
   speed: number;
-  
   static radius: number = 20;
-  alive: boolean = true;
-      
+  alive: boolean = true;   
   constructor(x: number, y: number, letter: string, speed: number) {
     this.x = x;
     this.y = y;
@@ -32,18 +30,17 @@ class Bubble {
   }
 
 class Board {
-bubbles: Bubble[];
-timeout: number = 30;
-timer: number = 0;
-hits: number = 0;
-mistakes : number = 0;   
-nivel : number = 1;
-misstype : number = 0;
-
+  bubbles: Bubble[];
+  timeout: number = 30;
+  timer: number = 0;
+  hits: number = 0;
+  mistakes : number = 0;   
+  nivel : number = 1;
   constructor() {
     this.bubbles = [new Bubble(100, 100, "a", 1)];
     this.bubbles.push(new Bubble(200, 100, "b", 2));
   }
+
   addBubble(): void {
     let x = random(0, width - 2 * Bubble.radius);
     let y = -2 * Bubble.radius;
@@ -65,13 +62,6 @@ misstype : number = 0;
      this.bubbles = this.bubbles.filter(b => b.alive)
    }
 
-   mistakeByHit() : void {
-    if (this.bubbles = this.bubbles.filter(b =>! b.alive)) {
-      this.misstype++;
-    }
-
-  }
-
    removeByHit(code : number) : void {
       for (let bubble of this.bubbles)
         if (bubble.letter[0].toUpperCase().charCodeAt(0) === code) {
@@ -80,8 +70,6 @@ misstype : number = 0;
           break;
         }
    }
-
-  
 
    markedOutsideBubble() : void {
      for (let bubble of this.bubbles)
@@ -108,7 +96,6 @@ misstype : number = 0;
     for (let bubble of this.bubbles)
         bubble.update();
   }
- 
 
   draw(): void {
     stroke("white");
@@ -118,7 +105,6 @@ misstype : number = 0;
     text("erros:" + this.mistakes, 30, 90);
     text("nivel:" + this.nivel, 30, 135);
     text("timeout:" + this.timeout, 30, 180);
-    text("misstypes:" + this.misstype, 30, 220);
     for (let bubble of this.bubbles)
         bubble.draw(); 
   }
@@ -127,7 +113,6 @@ misstype : number = 0;
 
 class Game {
   board: Board;
-  
   activeScreen: () => void;
     constructor() {
       this.board = new Board();
@@ -149,7 +134,6 @@ class Game {
       }
     }
 
-
     gamePlay(): void {
       background(50, 50, 50);
       this.board.update();
@@ -168,11 +152,7 @@ class Game {
 
 }
 
-
-
 let game: Game;
-
- 
 
 function setup() {
   createCanvas(800,600);

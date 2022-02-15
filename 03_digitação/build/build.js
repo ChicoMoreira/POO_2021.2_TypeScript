@@ -28,7 +28,6 @@ var Board = (function () {
         this.hits = 0;
         this.mistakes = 0;
         this.nivel = 1;
-        this.misstype = 0;
         this.bubbles = [new Bubble(100, 100, "a", 1)];
         this.bubbles.push(new Bubble(200, 100, "b", 2));
     }
@@ -49,11 +48,6 @@ var Board = (function () {
     };
     Board.prototype.removeDeadBubbles = function () {
         this.bubbles = this.bubbles.filter(function (b) { return b.alive; });
-    };
-    Board.prototype.mistakeByHit = function () {
-        if (this.bubbles = this.bubbles.filter(function (b) { return !b.alive; })) {
-            this.misstype++;
-        }
     };
     Board.prototype.removeByHit = function (code) {
         for (var _i = 0, _a = this.bubbles; _i < _a.length; _i++) {
@@ -99,7 +93,6 @@ var Board = (function () {
         text("erros:" + this.mistakes, 30, 90);
         text("nivel:" + this.nivel, 30, 135);
         text("timeout:" + this.timeout, 30, 180);
-        text("misstypes:" + this.misstype, 30, 220);
         for (var _i = 0, _a = this.bubbles; _i < _a.length; _i++) {
             var bubble = _a[_i];
             bubble.draw();
