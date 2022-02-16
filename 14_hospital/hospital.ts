@@ -18,7 +18,6 @@ class Paciente implements IPaciente {
     protected nome: string
     protected diagnostico: string
     protected medicos: Map<string, IMedico>
-
     constructor(nome: string, diagnostico: string) {
         this.nome = nome
         this.diagnostico = diagnostico
@@ -42,7 +41,6 @@ class Paciente implements IPaciente {
             console.log("paciente já é atendido por medico dessa especialidade")
             return 
         }    
-    
         this.medicos.set(medico.getNome(), medico)
         medico.addPct(this)
     }
@@ -62,14 +60,12 @@ class Paciente implements IPaciente {
         let chaves = this.medicos.keys()
         return `${this.nome}: ${this.diagnostico} - Medicos:[${[...chaves].join(", ")}]`
     }
-
 }
 
 class Medico implements IMedico {
     nome: string
     especialidade: string
     pacientes: Map<string, IPaciente>
-
     constructor(nome: string, especialidade: string) {
         this.nome = nome
         this.especialidade = especialidade
@@ -107,18 +103,15 @@ class Medico implements IMedico {
         let chaves = this.pacientes.keys()
         return `medico ${this.nome}, ${this.especialidade} - pacientes[${[...chaves].join(", ")}]`
     }
-
 }
 
 class Hospital {
     medicos: Map<string, IMedico>
     pacientes: Map<string, IPaciente>
-
     constructor() {
     this.medicos = new Map<string, IMedico>()
     this.pacientes = new Map<string, IPaciente>()
     }
-
 
     addMed(medico: IMedico) {
         if(this.pacientes.has(medico.getNome())) {
@@ -170,22 +163,6 @@ class Hospital {
         return saida
     }
 }
-
-
-// let pct1 = new Paciente("chico", "dor de cabeça")
-// let pct2 = new Paciente("pikachu", "pokerus")
-// let pct3 = new Paciente("jubescreison", "braço quebrado")
-// console.log(pct1.toString())
-// let med1 = new Medico("creison", "obstetra")
-// let med2 = new Medico("picson", "urologista")
-// let med3 = new Medico("proberto", "cardiologista")
-// let med4 = new Medico("rorodrigo", "urologista")
-// console.log(med1.toString())
-// med2.addPct(pct1)
-// pct1.addMdc(med4)
-// console.log(med1.toString())
-// console.log(pct1.toString())
-
 
 let hosp = new Hospital()
 hosp.addMed(new Medico("dio", "interna"))
