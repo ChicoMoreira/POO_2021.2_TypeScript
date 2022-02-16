@@ -1,8 +1,6 @@
-
 class Pessoa {
     nome : string
     tag : number
-
     constructor(nome: string, tag: number) { 
         this.nome   = nome
         this.tag = tag
@@ -12,7 +10,6 @@ class Pessoa {
 class Cinema {
     cadeiras: Map<number, Pessoa>;
     nomes: Map<string, number>;
-
     constructor(public lotacao: number){
         this.cadeiras = new Map<number, Pessoa>();
         this.nomes = new Map<string, number>();
@@ -51,7 +48,6 @@ class Cinema {
         }
     }
 
-
     public toString() : string {
         let saida = "Sala [-";
         for (let i = 0; i < this.lotacao; i++) {
@@ -66,11 +62,9 @@ class Cinema {
     }
 }
 
-
 let cin = new Cinema (7)
 cin.reservar(0, new Pessoa("clebis", 3032))
-cin.reservar(1, new Pessoa("joao", 3333))
-cin.reservar(7, new Pessoa("joseb", 3334))
+cin.reservar(3, new Pessoa("chico", 3334))
 cin.reservar(7, new Pessoa("dio", 3336))
 cin.reservar(2, new Pessoa("joao", 3333))
 cin.reservar(4, new Pessoa("dio", 3336))
