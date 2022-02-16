@@ -24,9 +24,6 @@ class Macarrao {
     public toString() {
         return (`macarrão ${this.tipo}, preparo de ${this.preparo} minutos`)
     }
-
-
-
 }
 
 class Chines extends Macarrao {
@@ -119,28 +116,19 @@ class Yakissoba extends Chines {
     public toString(){
        return (super.toString() + ` sabor ${this.sabor} `)
     }
-
-
 }
 
 let yaki = new Yakissoba("camarão", "oriental picante", "yakimeshi", 5)
 let maca = new Macarrao("parafuso", 9)
-
-// console.log(maca.toString())
-
-
 yaki.comer()
 yaki.cozinhar()
 yaki.cozinhar()
 yaki.cozinhar()
 yaki.cozinhar()
 yaki.cozinhar()
-// yaki.comer()
 console.log(yaki.toString())
 yaki.comer()
 yaki.comer()
-yaki.comer()
-yaki.comer()
-yaki.comer()
-yaki.comer()
 yaki.cozinhar()
+yaki.comer()
+yaki.comer()
