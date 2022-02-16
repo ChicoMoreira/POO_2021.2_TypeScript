@@ -1,11 +1,6 @@
-// const readline = require('readline-sync');
-// let terminal = (): string => readline.question();
-// let escrever = (x : any) => process.stdout.write("" + x);
-
 class Tele {
     private tag: string;
-    private number: string;
-    
+    private number: string;    
     constructor(tag: string, number: string) {
     this.tag = tag;
     this.number= number;
@@ -53,20 +48,25 @@ class Contato {
     
         }
     }
-    public toString3(): string {
-        let saida = this.nome + " ";
+    
+    public toString(): string {
+        let saida = `Telefone de ${this.nome}\ncontatos:{`;
         for(let i = 0; i < this.teles.length; i++) {
-            saida += `[${(i)}: ${this.teles[i].toString()}]`
+            saida += ` [${(i)}: ${this.teles[i].toString()}] `
         }
-        return saida;
+        return saida += "}";
     }
   
     public setNome(nome : string) {
         this.nome = nome;
     }
     
-    public getTeles() : Array<Tele> {
-        return this.teles
+    public getNumbers() : Array<Tele> {
+        let saida = []
+        for (let tele of this.teles) {
+        saida.push(tele)
+        }
+    return saida
     }
     
     public addTele(tele : Tele) : boolean {
@@ -76,6 +76,7 @@ class Contato {
         }
         else return false;
     }
+    
     public removeFone(index: number) : void {
         if (this.teles.length == 0) {
             console.log("lista vazia");
@@ -97,7 +98,6 @@ class Agenda {
     constructor() {
         this.contatos = Array<Contato>();
     }
-
 
     private findByName(nome: string): number {
         for (let i = 0; i < this.contatos.length ; i++) {
@@ -142,101 +142,42 @@ class Agenda {
             return null;
         
     }
-    
+
     public toString(): string {
         let saida = "";
         for(let i = 0; i < this.contatos.length; i++) {
-            saida += ` ${this.contatos[i].toString3()}\n`
+            saida += `${this.contatos[i].toString()}\n`
         }
         return saida;
     }
-
     
-    // busca(padrao: string): Array<Contato>{
+    // busca(padrao: string): Array<Contato> | undefined{
     //     let result = [];
+    //         // for (let i = 0; i < this.contatos.length ; i++){
+    //         //     if(this.getContato[i] == padrao){
+    //         //         result.push(this.contatos[i]);    
+    //         // }
     //         for (let i = 0; i < this.contatos.length ; i++){
-    //             if(this.getContato[i] == padrao){
-    //                 result.push(this.contatos[i]);    
+    //             if(this.contatos[i].toString() == padrao){
+    //                 result.push(this.contatos[i].toString());    
     //         }
     //     }
-    //     return result;
+    //     for (let contato of result) {
+    //         contato.toString()
+    //     }
+    //     return result
     // }
 }
 
-
-// class Shell2 {
-//     help() {
-//         escrever("  comandos \n");
-//         escrever("  add <contato> <tag> <numero>: adiciona um número a um contato \n");
-//         escrever("  remove <nome>: remove o contato \n")
-//         escrever("  removetele <nome> <index>: remove o numero do index desse contato \n")
-//         escrever("  check <nome>: mostra os numeros salvos nesse contato \n");
-//         escrever("  mostrar: exibe o contato \n");
-//         escrever("  agenda: exibe toda a agenda \n");
-//     }
-
-//     public init() {
-//         let cont = new Agenda(); 
-//         this.help();
-//         while (true) {
-//             escrever("> ");
-//             let line = terminal();
-//             let words = line.split(" ");
-//             if (words[0] == "end") {
-//                 break;
-//             } 
-//             else if (words[0] == "check") {
-//                 let nome = words[1];
-//                 cont.getContato(nome);
-//             } 
-//             else if (words[0] == "agenda") {
-//                 cont.toString();
-//             }
-//         //     else if (words[0] == "add") {
-//         //         let cli = cont.add(words[1], words[2], words[3]);
-//         // }
-//         //    else if (words[0] == "remover") {
-//         //         let id = +words[1];     
-//         //     cont.removeFone(id);
-//         //     } 
-//         //     else if (words[0] == "mostrar") {
-//         //         console.log(cont.toString3());
-//         //     } 
-
-
-//         }
-//     }
-// }
-
-// let cuida = new Shell2;
-// cuida.init();
-
-
-let vai = new Agenda();
-let numero = new Tele("oi", "8599924");
-// vai.add("cleber", new Tele("oi", "282019482108"));
-
-let tele1 = new Tele("oi", "02948210948")
-let tele2 = new Tele("oioi", "s038ry")
-// jjj.addTele(numero);
-// jjj.addTele(tele1);
-let novo = new Array<Tele>(tele1,tele2,numero);
-let jjj = new Contato("jober", novo)
-//console.log(jjj.toString3());
-
-
-vai.add("chico", novo);
-vai.add("chico", novo);
-vai.add("falvio", novo);
-console.log(vai.toString());
-vai.remove("falvio");
-vai.remove("jp");
-vai.removeTele("chico", 0);
-vai.removeTele("chico", 4);
-console.log(vai.toString());
-console.log(vai.getContato("chico"));
-console.log(vai.getContato("pv"));
-
- //console.log(vai.busca("oi"));
-
-
+let agenda = new Agenda();
+agenda.add("chico", [new Tele("vivo", "988110452"), new Tele("laricel", "(85)97762452")])
+agenda.add("dio", [new Tele("laricel", "(11)999222"), new Tele("tim", "1284721984")])
+agenda.add("chico", [new Tele("oi", "(85)213123")])
+console.log(agenda.toString());
+agenda.remove("dio")
+agenda.remove("jp");
+agenda.removeTele("chico", 0);
+agenda.removeTele("chico", 4);
+console.log(agenda.toString());
+// agenda.busca("o")
+// agenda.busca("9")
