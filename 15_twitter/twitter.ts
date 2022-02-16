@@ -1,5 +1,3 @@
-import { arrayBuffer } from "stream/consumers"
-
 class User {
     private username: string
     private inbox: Inbox
@@ -197,7 +195,6 @@ class Inbox {
     }
 }
 
-
 class Controller {
     private users: Map<string, User>
     private nextTweetId: number
@@ -241,7 +238,7 @@ class Controller {
         user.sendTwitada(rt)
      }
     
-     public criarTweet(usuario: string, msg: string) : Tweet {
+    public criarTweet(usuario: string, msg: string) : Tweet {
         this.nextTweetId++
         let tweet: Tweet = new Tweet(this.nextTweetId, usuario, msg)
         return tweet 
