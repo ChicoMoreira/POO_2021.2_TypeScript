@@ -1,7 +1,8 @@
+import { fchown } from "fs";
+
 class Tele {
     private tag: string;
-    private number: string;
-    
+    private number: string;    
     constructor(tag: string, number: string) {
     this.tag = tag;
     this.number= number;
@@ -61,8 +62,6 @@ class Contato {
         return this.teles
     }
     
-   
-
     public addTele(tele : Tele) : boolean {
         if(tele.isValid() == true) {
             this.teles.push(tele);
@@ -92,22 +91,45 @@ class Agenda {
         this.contatos = new Map<string, Contato>();
     }
 
-
-    public add (contato : Contato): void {
-        if (this.contatos.has(contato.getNome())){
-           // this.contatos.get(contato.getNome()).addTele();   
-           for(let fone of contato.getTeles()){
-            let cntt = this.contatos.get(contato.getNome());
-            cntt!.addTele(fone);
-           }
+    public add(contato : string, tele: Array<Tele>) {
+        if (this.contatos.has(contato)){   
+         let cntt = this.contatos.get(contato);
+        //    for(let fone of this.contatos.getTeles()){
+        //     cntt!.addTele(tele);
+        //    }
+            for (let teles of tele) {
+            if (cntt.addTele(teles) == true)
+            cntt.getTeles().push(teles)
+            return
         }
-        else {
-           this.contatos.set(contato.getNome(), contato)
-            
-        }
+        this.contatos.set(contato, new Contato(contato, tele))
+        return
     }
+    //      if (!this.contatos.has(contato.getNome())) {
+    //          this.contatos.set(contato.getNome(), contato)
+    //         for (let fone of contato.getTeles()) {
+    //         let cntt2 = this.contatos.get(contato.getNome())
+    //         cntt2!.addTele(fone)  
+    //     }
+    //     return
+    // }
+        // contato.getNome()
+        // if (this.contatos.has(contatoNome)) {
+        //     for(let fone of contato.getTeles()){
+        //             let cntt = this.contatos.get(contato.getNome());
+        //             this.contatos.get(contatoNome)!.addTele(fone);
+        //            }
+        //            return
+        // }
+        // this.contatos.set(contatoNome, contato)
+        // for (let fone of contato.getTeles()) {
+        //         let cntt2 = this.contatos.get(contatoNome)
+                  
+        //         }
+        //         return
 
-    public remove(nome: string): void {
+    }
+    public remove(nome: string) {
         if (this.contatos.has(nome)){
         this.contatos.delete(nome)
         }
@@ -125,13 +147,12 @@ class Agenda {
         
     }
 
-    toString(): string {
-        let str = "";
-        for (let contact of this.contatos.values()){
-            str += contact.toString();
-            str +="\n";
+    public toString(): string {
+        let saida = "";
+        for(let contatos of this.contatos.values()) {
+            saida += `${contatos.toString()}\n`
         }
-        return str;
+        return saida;
     }
 
     public findByPattern(pattern: string): Array<Contato> {
@@ -145,19 +166,9 @@ class Agenda {
     }
 }
 
-
-let vai = new Agenda();
-let tele1 = new Tele("claro" , "888888" )
-let chico = new Contato("chico", [tele1])
-vai.add(chico)
-vai.add(new Contato("airton", [new Tele("oi", "881199"), new Tele("claro", "990909")]))
-vai.add(new Contato("josué", [new Tele("oi", "881199"), new Tele("claro", "99090+SFJ9")]))
-console.log(vai.toString());
-vai.remove("chico")
-vai.remove("clebisvaldo")
-console.log(vai.toString());
-console.log(vai.findContato("josué"))
-console.log(vai.findContato("josaías"))
-console.log(vai.findByPattern("o"))
+let agenda = new Agenda()
+agenda.add("chico", [new Tele("vivo", "(85)882131"), new Tele("tim", "(11)389750")])
+agenda.add("chico", [new Tele("laricel", "88224214")])
+agenda.toString()
 
 
